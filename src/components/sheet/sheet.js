@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Masu from "../masu/masu";
 import "./sheet.css";
 
 const Sheet = () => {
-  const bingoSheet = [
-    [0, 1, 2, 3, 4],
-    [0, 1, 2, 3, 4],
-    [0, 1, 2, 3, 4],
-    [0, 1, 2, 3, 4],
-    [0, 1, 2, 3, 4],
-  ];
+  const [bingoState, setBingoState] = useState([
+    [false, false, false, false, false],
+    [false, false, false, false, false],
+    [false, false, false, false, false],
+    [false, false, false, false, false],
+    [false, false, false, false, false],
+  ]);
 
-  const valueList = [];
+  const [valueList, setValueList] = useState(
+    [0, 1, 2, 3, 4],
+    [0, 1, 2, 3, 4],
+    [0, 1, 2, 3, 4],
+    [0, 1, 2, 3, 4],
+    [0, 1, 2, 3, 4]
+  );
+
+  useEffect(() => {
+    setValueList(
+      bingoState.map((c, columnIndex) =>
+        c.map((state, rowIndex) => generateRandomValue(rowIndex))
+      )
+    );
+  }, []);
 
   const generateRandomValue = (row) => {
     let min;
@@ -76,15 +90,30 @@ const Sheet = () => {
     }
   };
 
+  const handleClick = (column, row) => {
+    const newState = bingoState.map((c, columnIndex) =>
+      c.map((state, rowIndex) => {
+        if (columnIndex === column && rowIndex === row) {
+          return true;
+        }
+        return state;
+      })
+    );
+
+    setBingoState(newState);
+  };
+
   return (
     <>
-      {bingoSheet.map((column) => (
+      {bingoState.map((column, columnIndex) => (
         <div className="row-container">
-          {column.map((row) => (
+          {column.map((state, rowIndex) => (
             <Masu
-              column={bingoSheet.indexOf(column)}
-              row={row}
-              value={generateRandomValue(row)}
+              column={columnIndex}
+              row={rowIndex}
+              value={valueList[columnIndex][rowIndex]}
+              isOpen={state}
+              onClick={handleClick}
             />
           ))}
         </div>
