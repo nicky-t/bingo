@@ -4,3 +4,17 @@
   align-items: stretch;
   height: 20%;
 }
+
+.column {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  align-items: stretch;
+  margin: auto;
+  margin-top: 60px;
+}
+
+.column-name {
+  width: 20%;
+  text-align: center;
+}
