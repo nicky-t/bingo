@@ -219,8 +219,10 @@ const Sheet = () => {
 
   return (
     <>
-      {isBingoState ? <p>Bingo!!</p> : null}
-      {reachCountState > 0 ? <p>reach: {reachCountState}</p> : null}
+      {isBingoState ? <p className="bingo">Bingo！！</p> : null}
+      {reachCountState > 0 ? (
+        <p className="reach">{reachCountState}リーチ</p>
+      ) : null}
       <div className="column">
         <div className="column-name">B列</div>
         <div className="column-name">I列</div>

@@ -7,7 +7,11 @@ const Masu = ({ column, row, value, isOpen, onClick }) => {
       onClick={() => onClick(column, row)}
       className={isOpen ? "container-open" : "container-close"}
     >
-      <p>{row === 2 && column === 2 ? "Free!" : value}</p>
+      {isOpen ? (
+        <div className="open"></div>
+      ) : (
+        <p className="value">{row === 2 && column === 2 ? "Free!" : value}</p>
+      )}
     </button>
   );
 };
